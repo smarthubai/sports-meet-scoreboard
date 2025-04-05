@@ -1,0 +1,40 @@
+/*General*/
+.mt-addons_button_holder .mt-addons_button{
+    font-size: 1em;
+    transition: all 250ms ease 0s;
+    -webkit-transition: all 250ms ease 0s;
+    display: inline-block;
+}
+.mt-addons_button_holder.inline-block {
+    display: inline-block;
+}
+
+/*Button Shapes*/
+.mt-addons_button_holder.btn-rounded .mt-addons_button {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.mt-addons_button_holder.btn-round .mt-addons_button {
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+}
+.mt-addons_button_holder.btn-square .mt-addons_button {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+}
+
+/*Button Sizes*/
+.mt-addons_button_holder .mt-addons_button.mt-addons-btn-sm {
+    padding: 5px 15px;
+}
+.mt-addons_button_holder .mt-addons_button.mt-addons-btn-medium {
+    padding: 10px 25px;
+}
+.mt-addons_button_holder .mt-addons_button.mt-addons-btn-lg {
+    padding: 15px 35px;
+}
+.mt-addons_button_holder .mt-addons_button.mt-addons-btn-extra-large {
+    padding: 18px 42px;
+}
+
+

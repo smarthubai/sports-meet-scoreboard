@@ -1,0 +1,29 @@
+.mt-addons-absolute-element-absolute{
+	position: absolute;
+}
+.mt-addons-absolute-element-absolute.rotate{
+	animation: spin 8s linear 0s infinite;
+}
+@media only screen and (max-width: 991px){ 
+	.mt-addons-absolute-element-absolute {
+	    position: sticky!important;
+	}
+}
+.mt-addons-absolute-element-absolute.float{
+	/*animation: spin 8s linear 0s infinite;*/
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+@media only screen and (max-width: 768px) {
+	.mt-addons-absolute-element-absolute{
+	    top: 10%!important;
+	}
+}

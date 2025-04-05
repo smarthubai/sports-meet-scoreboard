@@ -1,0 +1,20 @@
+img.mt-addons-video-buton-image{
+    width: fit-content;
+}
+.mt-addons-video-buton-image:hover {
+    transform: scale(1.1);
+    transition: all 400ms ease-in-out 0s;
+    -ms-transformtransition: all 400ms ease-in-out 0s;
+    -webkit-transformtransition: all 400ms ease-in-out 0s;
+}
+.mt-addons-video-buton-image {
+    transform: scale(1.0);
+    transition: all 400ms ease-in-out 0s;
+    -ms-transformtransition: all 400ms ease-in-out 0s;
+    -webkit-transformtransition: all 400ms ease-in-out 0s;
+}
+@media only screen and (max-width: 767px) {
+    body img.mt-addons-video-buton-image {
+        width: 100px;
+    }
+}
