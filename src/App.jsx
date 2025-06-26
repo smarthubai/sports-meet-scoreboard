@@ -1,15 +1,15 @@
 import React, { useState, useEffect, createContext, useContext, useCallback } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 
 // Game Types Configuration
 const GAME_TYPES = [
-  { id: 'chess-single', name: 'Chess Singles', isDoubles: false },
+  { id: 'chess-single', name: 'Chess', isDoubles: false },
   { id: 'carrom', name: 'Carrom', isDoubles: true },
-  { id: 'tt-doubles', name: 'Table Tennis Doubles', isDoubles: true },
-  { id: 'darts-single', name: 'Darts Singles', isDoubles: false }
+  { id: 'tt-doubles', name: 'Table Tennis', isDoubles: true },
+  { id: 'darts-single', name: 'Dart', isDoubles: false }
 ];
 
 // Context Setup
@@ -17,7 +17,7 @@ const AppContext = createContext();
 const useApp = () => useContext(AppContext);
 
 const LOCAL_KEY = 'tournament_app_data_final';
-const ADMIN_PASS = '123'; // Change in production
+const ADMIN_PASS = 'aaa'; // Change in production
 
 const firebaseConfig = {
   apiKey: "AIzaSyAU6tlFnapvjAV-WnVzSdRu--Cn_kYrHIs",
@@ -62,7 +62,10 @@ const AppProvider = ({ children }) => {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [games, setGames] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(() => {
+  const stored = localStorage.getItem(LOCAL_KEY);
+  return stored ? JSON.parse(stored).isAdmin || false : false;
+});
   const [publicToken, setPublicToken] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [gameMode, setGameMode] = useState('singles'); // 'singles' or 'doubles'
@@ -220,11 +223,17 @@ const AppProvider = ({ children }) => {
     });
   }, [updateStats]);
 
-  const loginAdmin = (password) => {
-    const success = password === ADMIN_PASS;
-    setIsAdmin(success);
-    return success;
-  };
+ const loginAdmin = (password) => {
+  const success = password === ADMIN_PASS;
+  setIsAdmin(success);
+  // Save to localStorage
+  const currentData = JSON.parse(localStorage.getItem(LOCAL_KEY)) || {};
+  localStorage.setItem(LOCAL_KEY, JSON.stringify({
+    ...currentData,
+    isAdmin: success
+  }));
+  return success;
+};
 
   const getPublicUrl = () => {
     return `${window.location.origin}${window.location.pathname}#/public/${publicToken}`;
@@ -790,107 +799,135 @@ const PublicView = () => {
   );
 };
 
-const AdminTools = () => {
-  const { getPublicUrl, isAdmin } = useApp();
-  const [copied, setCopied] = useState(false);
 
-  if (!isAdmin) return null;
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(getPublicUrl());
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="p-4 mb-6 bg-white rounded-lg shadow-md">
-      <h2 className="mb-4 text-xl font-bold">Admin Tools</h2>
-      <div className="space-y-4">
-        <div>
-          <h3 className="mb-2 font-medium">Public Sharing Link</h3>
-          <div className="flex">
-            <input
-              type="text"
-              value={getPublicUrl()}
-              readOnly
-              className="flex-1 p-2 border rounded-l focus:outline-none"
-            />
-            <button
-              onClick={copyToClipboard}
-              className={`px-4 py-2 rounded-r ${copied ? 'bg-green-500' : 'bg-blue-500'} text-white`}
-            >
-              {copied ? 'Copied!' : 'Copy'}
-            </button>
-          </div>
-          <p className="mt-1 text-sm text-gray-500">
-            Share this link to allow public viewing (read-only)
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const App = () => {
   return (
     <AppProvider>
       <Router>
-        <nav className="bg-white shadow-sm">
-          <div className="px-4 mx-auto max-w-7xl">
-            <div className="flex justify-between h-16">
-              <div className="flex space-x-8">
-                <Link
-                  to="/dashboard"
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-blue-500"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/leaderboard"
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-                >
-                  Leaderboard
-                </Link>
-                <Link
-                  to="/enter-score"
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-                >
-                  Enter Score
-                </Link>
-                <Link
-                  to="/edit-score"
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-                >
-                  Edit Scores
-                </Link>
-              </div>
-              <div className="flex items-center">
-                <Link
-                  to="/admin"
-                  className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
-                >
-                  Admin
-                </Link>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        <main className="p-4 mx-auto max-w-7xl">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/enter-score" element={<EnterScore />} />
-            <Route path="/edit-score" element={<EditScore />} />
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/public/:token" element={<PublicView />} />
-          </Routes>
-          {/* <AdminTools /> */}
-        </main>
+        <AppContent />
       </Router>
     </AppProvider>
   );
 };
+
+const AppContent = () => {
+  const { isAdmin } = useApp();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear admin status
+    const currentData = JSON.parse(localStorage.getItem(LOCAL_KEY)) || {};
+    localStorage.setItem(LOCAL_KEY, JSON.stringify({
+      ...currentData,
+      isAdmin: false
+    }));
+    window.location.reload(); // Refresh to reset state
+  };
+
+  return (
+    <>
+      <nav className="bg-white shadow-sm">
+        <div className="px-4 mx-auto max-w-7xl">
+          <div className="flex justify-between h-16">
+            <div className="flex space-x-8">
+              <NavLink
+                to="/dashboard"
+                end
+                className={({ isActive }) => 
+                  `inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                    isActive
+                      ? 'text-gray-900 border-b-2 border-blue-500'
+                      : 'text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700'
+                  }`
+                }
+              >
+                Dashboard
+              </NavLink>
+              <NavLink
+                to="/leaderboard"
+                className={({ isActive }) => 
+                  `inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                    isActive
+                      ? 'text-gray-900 border-b-2 border-blue-500'
+                      : 'text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700'
+                  }`
+                }
+              >
+                Leaderboard
+              </NavLink>
+              {isAdmin && (
+                <>
+                  <NavLink
+                    to="/enter-score"
+                    className={({ isActive }) => 
+                      `inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                        isActive
+                          ? 'text-gray-900 border-b-2 border-blue-500'
+                          : 'text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700'
+                      }`
+                    }
+                  >
+                    Enter Score
+                  </NavLink>
+                  <NavLink
+                    to="/edit-score"
+                    className={({ isActive }) => 
+                      `inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                        isActive
+                          ? 'text-gray-900 border-b-2 border-blue-500'
+                          : 'text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700'
+                      }`
+                    }
+                  >
+                    Edit Scores
+                  </NavLink>
+                </>
+              )}
+            </div>
+            <div className="flex items-center space-x-4">
+              {isAdmin ? (
+                <button
+                  onClick={handleLogout}
+                  className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+                >
+                  Logout
+                </button>
+              ) : (
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) => 
+                    `inline-flex items-center px-3 py-1 text-sm font-medium text-white rounded-md hover:bg-blue-700 ${
+                      isActive ? 'bg-blue-800 ring-2 ring-blue-400' : 'bg-blue-600'
+                    }`
+                  }
+                >
+                  Admin
+                </NavLink>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main className="p-4 mx-auto max-w-7xl">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          {isAdmin && (
+            <>
+              <Route path="/enter-score" element={<EnterScore />} />
+              <Route path="/edit-score" element={<EditScore />} />
+            </>
+          )}
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/public/:token" element={<PublicView />} />
+        </Routes>
+      </main>
+    </>
+  );
+};
+
 
 export default App;
