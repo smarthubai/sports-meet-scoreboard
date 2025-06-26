@@ -36,27 +36,27 @@ const db = getDatabase(app);
 const AppProvider = ({ children }) => {
   
   const defaultPlayers = [
-   { id: 'p1', name: 'Anil', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p2', name: 'Nithin', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p3', name: 'Sowmini', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p4', name: 'Gautham Kamath', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p5', name: 'Manoj', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p6', name: 'Liya', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p7', name: 'Kripa', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p8', name: 'Gautham Chandra', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p9', name: 'Arun', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p10', name: 'Santosh', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p11', name: 'Nithya Prashanth', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p12', name: 'Yaseen', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p13', name: 'Abhyuday', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p14', name: 'Abhishek Saini', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p15', name: 'Jerin', teamId: 'blue', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'p16', name: 'Ajith', teamId: 'orange', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+   { id: 'p1', name: 'Anil', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p2', name: 'Nithin', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p3', name: 'Sowmini', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p4', name: 'Gautham Kamath', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p5', name: 'Manoj', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p6', name: 'Liya', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p7', name: 'Kripa', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p8', name: 'Gautham Chandra', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p9', name: 'Arun', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p10', name: 'Santosh', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p11', name: 'Nithya Prashanth', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p12', name: 'Yaseen', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p13', name: 'Abhyuday', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p14', name: 'Abhishek Saini', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p15', name: 'Jerin', teamId: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'p16', name: 'Ajith', teamId: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
   ];
 
   const defaultTeams = [
-    { id: 'blue', name: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'orange', name: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 }
+    { id: 'AIKYA', name: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'AGNISPARSH', name: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 }
   ];
 
   const [players, setPlayers] = useState([]);
@@ -319,7 +319,7 @@ const Dashboard = () => {
       <h1 className="mb-6 text-2xl font-bold">Team Dashboard</h1>
       <div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2">
         {teams.map(team => (
-          <div key={team.id} className={`p-4 rounded-lg shadow-md ${team.id === 'blue' ? 'bg-blue-50' : 'bg-orange-50'}`}>
+          <div key={team.id} className={`p-4 rounded-lg shadow-md ${team.id === 'AIKYA' ? 'bg-blue-50' : 'bg-orange-50'}`}>
             <h2 className="mb-2 text-xl font-semibold">{team.name}</h2>
             <div className="grid grid-cols-3 gap-2">
               <div>
@@ -365,7 +365,7 @@ const Leaderboard = () => {
               <tr key={player.id}>
                 <td className="px-6 py-4 whitespace-nowrap">{player.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 py-1 rounded-full text-xs ${player.teamId === 'blue' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800'}`}>
+                  <span className={`px-2 py-1 rounded-full text-xs ${player.teamId === 'AIKYA' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800'}`}>
                     {player.teamId}
                   </span>
                 </td>
@@ -395,6 +395,8 @@ const EnterScore = () => {
   const [team2, setTeam2] = useState(gameMode === 'singles' ? [''] : ['', '']);
   const [score1, setScore1] = useState('');
   const [score2, setScore2] = useState('');
+  const [team1Name, setTeam1Name] = useState('AIKYA');
+  const [team2Name, setTeam2Name] = useState('AGNISPARSH');
 
   // Reset team selection when game mode changes
   useEffect(() => {
@@ -447,8 +449,24 @@ const EnterScore = () => {
         <GameTypeSelector />
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {/* Team 1 Section */}
           <div className="space-y-2">
-            <h3 className="font-medium text-blue-700">AIKYA</h3>
+            <label className="block font-medium">Select Team 1</label>
+            <select
+              value={team1Name}
+              onChange={(e) => {
+                setTeam1Name(e.target.value);
+                setTeam1(['']); // reset players when team changes
+              }}
+              className="w-full p-2 border rounded"
+              required
+            >
+              <option value="">-- Select Team --</option>
+              <option value="AIKYA">AIKYA</option>
+              <option value="AGNISPARSH">AGNISPARSH</option>
+            </select>
+
+            <h3 className="font-medium text-blue-700 uppercase">{team1Name}</h3>
             {team1.map((id, idx) => (
               <div key={`team1-${idx}`} className="flex items-center gap-2">
                 <select
@@ -462,9 +480,13 @@ const EnterScore = () => {
                   required
                 >
                   <option value="">Select Player</option>
-                  {players.filter(p => p.teamId).map(p => (
-                    <option key={p.id} value={p.id}>{p.name}</option>
-                  ))}
+                  {players
+                    .filter((p) => p.teamId === team1Name)
+                    .map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name}
+                      </option>
+                    ))}
                 </select>
                 {idx === team1.length - 1 && team1.length < 2 && gameMode === 'doubles' && (
                   <button
@@ -479,8 +501,25 @@ const EnterScore = () => {
             ))}
           </div>
 
+          {/* Team 2 Section */}
           <div className="space-y-2">
-            <h3 className="font-medium text-orange-700">AGNISPARSH</h3>
+            <label className="block font-medium">Select Team 2</label>
+            <select
+              value={team2Name}
+              onChange={(e) => {
+                setTeam2Name(e.target.value);
+                setTeam2(['']); // reset players when team changes
+              }}
+              className="w-full p-2 border rounded"
+              required
+            >
+              <option value="">-- Select Team --</option>
+              <option value="AIKYA">AIKYA</option>
+              <option value="AGNISPARSH">AGNISPARSH</option>
+            </select>
+
+            <h3 className="font-medium text-orange-700 uppercase">{team2Name}</h3>
+            {console.log("PLAYERS", players)}
             {team2.map((id, idx) => (
               <div key={`team2-${idx}`} className="flex items-center gap-2">
                 <select
@@ -494,9 +533,13 @@ const EnterScore = () => {
                   required
                 >
                   <option value="">Select Player</option>
-                  {players.filter(p => p.teamId).map(p => (
-                    <option key={p.id} value={p.id}>{p.name}</option>
-                  ))}
+                  {players
+                    .filter((p) => p.teamId === team2Name)
+                    .map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name}
+                      </option>
+                    ))}
                 </select>
                 {idx === team2.length - 1 && team2.length < 2 && gameMode === 'doubles' && (
                   <button
@@ -514,7 +557,7 @@ const EnterScore = () => {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label className="block mb-1">AIKYA Score</label>
+            <label className="block mb-1">{team1Name?.toUpperCase()} Score</label>
             <input
               type="number"
               min="0"
@@ -525,7 +568,7 @@ const EnterScore = () => {
             />
           </div>
           <div>
-            <label className="block mb-1">AGNISPARSH Score</label>
+            <label className="block mb-1">{team2Name?.toUpperCase()} Score</label>
             <input
               type="number"
               min="0"
@@ -544,6 +587,7 @@ const EnterScore = () => {
           Submit Score
         </button>
       </form>
+
     </div>
   );
 };
