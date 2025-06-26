@@ -55,8 +55,8 @@ const AppProvider = ({ children }) => {
   ];
 
   const defaultTeams = [
-    { id: 'blue', name: 'Blue Team', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
-    { id: 'orange', name: 'Orange Team', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 }
+    { id: 'blue', name: 'AIKYA', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 },
+    { id: 'orange', name: 'AGNISPARSH', gamesPlayed: 0, gamesWon: 0, totalPoints: 0 }
   ];
 
   const [players, setPlayers] = useState([]);
@@ -448,7 +448,7 @@ const EnterScore = () => {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-2">
-            <h3 className="font-medium text-blue-700">Blue Team</h3>
+            <h3 className="font-medium text-blue-700">AIKYA</h3>
             {team1.map((id, idx) => (
               <div key={`team1-${idx}`} className="flex items-center gap-2">
                 <select
@@ -462,7 +462,7 @@ const EnterScore = () => {
                   required
                 >
                   <option value="">Select Player</option>
-                  {players.filter(p => p.teamId === 'blue').map(p => (
+                  {players.filter(p => p.teamId).map(p => (
                     <option key={p.id} value={p.id}>{p.name}</option>
                   ))}
                 </select>
@@ -480,7 +480,7 @@ const EnterScore = () => {
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-medium text-orange-700">Orange Team</h3>
+            <h3 className="font-medium text-orange-700">AGNISPARSH</h3>
             {team2.map((id, idx) => (
               <div key={`team2-${idx}`} className="flex items-center gap-2">
                 <select
@@ -494,7 +494,7 @@ const EnterScore = () => {
                   required
                 >
                   <option value="">Select Player</option>
-                  {players.filter(p => p.teamId === 'orange').map(p => (
+                  {players.filter(p => p.teamId).map(p => (
                     <option key={p.id} value={p.id}>{p.name}</option>
                   ))}
                 </select>
@@ -514,7 +514,7 @@ const EnterScore = () => {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label className="block mb-1">Blue Team Score</label>
+            <label className="block mb-1">AIKYA Score</label>
             <input
               type="number"
               min="0"
@@ -525,7 +525,7 @@ const EnterScore = () => {
             />
           </div>
           <div>
-            <label className="block mb-1">Orange Team Score</label>
+            <label className="block mb-1">AGNISPARSH Score</label>
             <input
               type="number"
               min="0"
