@@ -546,6 +546,15 @@ const EditScore = () => {
   const [score2, setScore2] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
+  if (!isAdmin) {
+    return (
+      <div className="p-4 text-center">
+        <h2 className="text-xl font-bold text-red-600">Admin Access Required</h2>
+        <p>Please login to enter scores</p>
+      </div>
+    );
+  }
+  
   const handleEdit = (game) => {
     setSelectedGame(game);
     setScore1(game.team1Score.toString());
